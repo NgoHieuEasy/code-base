@@ -13,6 +13,7 @@ function App() {
       <div style={{ padding: "50px 20px", textAlign: "center" }}>
         <h1>{t("homepage.welcome_title")}</h1>
         <h1>{t("homepage.login")}</h1>
+        <div className="text-red-500 bg-red-50">hdshdh</div>
       </div>
     </div>
   );
