@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Header from "./components/Header";
 import "./i18n";
+import SectionOneView from "@/sections/section-one";
 
 function App() {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ function App() {
       <div style={{ padding: "50px 20px", textAlign: "center" }}>
         <h1>{t("homepage.welcome_title")}</h1>
         <h1>{t("homepage.login")}</h1>
-
+        <SectionOneView />
       </div>
     </div>
   );
