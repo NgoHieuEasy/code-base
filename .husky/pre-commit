@@ -1,0 +1,6 @@
+#!/bin/sh
+# Chạy script tự chế (đã bao gồm quét glob và dịch AI)
+node auto-translate.cjs
+
+# Tự động add các file json đã được cập nhật
+git add public/locales/*.json
