@@ -2,5 +2,13 @@
   "homepage": {
     "welcome_title": "tiêu đề chào mừng",
     "login": "đăng nhập"
-  }
+  },
+  "@/pages/error/page404": "@/trang/lỗi/trang404",
+  "@/pages/demo/demo": "@/trang/demo/demo",
+  "@/pages/home/home": "@/trang/nhà/nhà",
+  "@/pages/spot/spot": "@/trang/điểm/điểm",
+  "@/pages/futures/futures": "@/pages/tương lai/tương lai",
+  "@/pages/one001x/one001x": "@/pages/one001x/one001x",
+  "@/pages/referrals/referrals": "@/pages/giới thiệu/giới thiệu",
+  "@/pages/portfolio/portfolio": "@/pages/portfolio/portfolio"
 }

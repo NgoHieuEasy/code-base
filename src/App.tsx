@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import Header from "./components/Header";
 import "./i18n";
 
 function App() {
@@ -7,8 +6,6 @@ function App() {
 
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
-      {/* Header xuất hiện ở trên cùng của mọi trang */}
-      <Header />
 
       <div style={{ padding: "50px 20px", textAlign: "center" }}>
         <h1>{t("homepage.welcome_title")}</h1>
