@@ -2,13 +2,5 @@
   "homepage": {
     "welcome_title": "hoş geldiniz başlığı",
     "login": "giriş yapmak"
-  },
-  "@/pages/error/page404": "@/sayfalar/hata/sayfa404",
-  "@/pages/demo/demo": "@/sayfalar/demo/demo",
-  "@/pages/home/home": "@/sayfalar/ana sayfa/ana sayfa",
-  "@/pages/spot/spot": "@/sayfalar/spot/spot",
-  "@/pages/futures/futures": "@/sayfalar/vadeli işlemler/vadeli işlemler",
-  "@/pages/one001x/one001x": "@/pages/one001x/one001x",
-  "@/pages/referrals/referrals": "@/sayfalar/yönlendirmeler/yönlendirmeler",
-  "@/pages/portfolio/portfolio": "@/sayfalar/portföy/portföy"
+  }
 }

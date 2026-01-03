@@ -2,13 +2,5 @@
   "homepage": {
     "welcome_title": "welcome title title tile",
     "login": "login"
-  },
-  "@/pages/error/page404": "@/pages/error/page404",
-  "@/pages/demo/demo": "@/pages/demo/demo",
-  "@/pages/home/home": "@/pages/home/home",
-  "@/pages/spot/spot": "@/pages/spot/spot",
-  "@/pages/futures/futures": "@/pages/futures/futures",
-  "@/pages/one001x/one001x": "@/pages/one001x/one001x",
-  "@/pages/referrals/referrals": "@/pages/referrals/referrals",
-  "@/pages/portfolio/portfolio": "@/pages/portfolio/portfolio"
+  }
 }

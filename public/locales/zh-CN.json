@@ -2,13 +2,5 @@
   "homepage": {
     "welcome_title": "欢迎标题",
     "login": "登录"
-  },
-  "@/pages/error/page404": "@/pages/error/page404",
-  "@/pages/demo/demo": "@/pages/演示/演示",
-  "@/pages/home/home": "@/pages/home/home",
-  "@/pages/spot/spot": "@/页面/现货/现货",
-  "@/pages/futures/futures": "@/页面/期货/期货",
-  "@/pages/one001x/one001x": "@/pages/one001x/one001x",
-  "@/pages/referrals/referrals": "@/页面/推荐/推荐",
-  "@/pages/portfolio/portfolio": "@/页面/投资组合/投资组合"
+  }
 }

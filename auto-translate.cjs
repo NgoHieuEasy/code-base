@@ -9,7 +9,7 @@ const LOCALES_DIR = path.join(__dirname, "public", "locales");
 const BASE_LANG = "en";
 const TARGET_LANGS = ["vi", "ko", "tr", "zh-CN"];
 
-const TRANSLATE_REGEX = /t\(['"`]([^'"`]+)['"`]\)/g;
+const TRANSLATE_REGEX = /t\(['"`]([a-zA-Z0-9._-]+)['"`]\)/g;
 
 /* -------------------- Utils -------------------- */
 

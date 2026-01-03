@@ -2,13 +2,5 @@
   "homepage": {
     "welcome_title": "환영 제목",
     "login": "로그인"
-  },
-  "@/pages/error/page404": "@/페이지/오류/page404",
-  "@/pages/demo/demo": "@/페이지/데모/데모",
-  "@/pages/home/home": "@/페이지/홈/홈",
-  "@/pages/spot/spot": "@/페이지/스팟/스팟",
-  "@/pages/futures/futures": "@/페이지/선물/선물",
-  "@/pages/one001x/one001x": "@/페이지/one001x/one001x",
-  "@/pages/referrals/referrals": "@/페이지/추천/추천",
-  "@/pages/portfolio/portfolio": "@/페이지/포트폴리오/포트폴리오"
+  }
 }
