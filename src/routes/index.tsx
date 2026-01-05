@@ -1,18 +1,16 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import { paths } from "./paths";
-import { SplashScreen } from "@/components/loading";
 
 const NotFoundPage = lazy(() => import("@/pages/error/page404"));
-const DemoPage = lazy(() => import("@/pages/demo/demo"));
 const HomePage = lazy(() => import("@/pages/home/home"));
-const SpotPage = lazy(() => import("@/pages/spot/spot"));
-const FuturesPage = lazy(() => import("@/pages/futures/futures"));
-const One001xPage = lazy(() => import("@/pages/one001x/one001x"));
-const ReferralsPage = lazy(() => import("@/pages/referrals/referrals"));
-const PortfolioPage = lazy(() => import("@/pages/portfolio/portfolio"));
+// const SpotPage = lazy(() => import("@/pages/spot/spot"));
+// const FuturesPage = lazy(() => import("@/pages/futures/futures"));
+// const One001xPage = lazy(() => import("@/pages/one001x/one001x"));
+// const ReferralsPage = lazy(() => import("@/pages/referrals/referrals"));
+// const PortfolioPage = lazy(() => import("@/pages/portfolio/portfolio"));
 
-// Lading
+import { SplashScreen } from "@/shared/components/loading";
 import InitLayout, { LAYOUT } from "@/layouts/init-layout";
 
 export function Router() {
@@ -38,26 +36,26 @@ export function Router() {
               path: paths.root,
               element: <HomePage />,
             },
-            {
-              path: `${paths.exchange.spot}/:id`,
-              element: <SpotPage />,
-            },
-            {
-              path: `${paths.exchange.futures}/:id`,
-              element: <FuturesPage/>,
-            },
-            {
-              path: `${paths.exchange.one001x}/:id`,
-              element: <One001xPage />,
-            },
-            {
-              path: paths.portfolio,
-              element: <PortfolioPage />,
-            },
-            {
-              path: paths.referrals,
-              element: <ReferralsPage />,
-            },
+            // {
+            //   path: `${paths.exchange.spot}/:id`,
+            //   element: <SpotPage />,
+            // },
+            // {
+            //   path: `${paths.exchange.futures}/:id`,
+            //   element: <FuturesPage/>,
+            // },
+            // {
+            //   path: `${paths.exchange.one001x}/:id`,
+            //   element: <One001xPage />,
+            // },
+            // {
+            //   path: paths.portfolio,
+            //   element: <PortfolioPage />,
+            // },
+            // {
+            //   path: paths.referrals,
+            //   element: <ReferralsPage />,
+            // },
           ],
         },
       ],
@@ -68,10 +66,7 @@ export function Router() {
       path: paths.page404,
       element: <NotFoundPage />,
     },
-    {
-      path: paths.demo,
-      element: <DemoPage />,
-    },
+
     { path: "*", element: <Navigate to={paths.page404} replace /> },
   ]);
   return router;

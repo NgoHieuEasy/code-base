@@ -8,10 +8,10 @@ interface Props {
   children: React.ReactNode;
 }
 
-const LAYOUT = {
+export const LAYOUT = {
   AUTH: "AUTH-LAYOUT",
   MAIN: "MAIN-LAYOUT",
-};
+} as const;
 
 const InitLayout = ({ type, children }: Props) => {
   useEffect(() => {

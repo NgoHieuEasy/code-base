@@ -1,7 +1,6 @@
 import PrimaryButton from "../button/primary-button";
 import { useIsLoggedIn } from "@/zustand/useUserStore";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import CloseIcon from "@/assets/icons/header/close-icon";
 import CopyIcon from "@/assets/icons/common/copy-icon";
 import {
@@ -9,7 +8,7 @@ import {
   useAppKitAccount,
   useDisconnect,
 } from "@reown/appkit/react";
-import { useHeaderMenu } from "@/hooks/components/useHeaderMenu";
+import { useHeaderMenu } from "@/shared/hooks/local/useHeaderMenu";
 
 export interface Props {
   open: boolean;
@@ -21,17 +20,10 @@ export const MenuMobile = ({ open, onClose }: Props) => {
   const { isConnected } = useAppKitAccount();
   const { disconnect } = useDisconnect();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const { menuItems, active, setActive } = useHeaderMenu();
-
-  useEffect(() => {
-    const item = menuItems.find((item) => item.route === location.pathname);
-    setActive(item?.route ?? "");
-  }, [location.pathname]);
+  const { menuItems, active } = useHeaderMenu();
 
   const handleClick = (route: string) => {
-    setActive(route);
     navigate(route);
     onClose();
   };
@@ -171,7 +163,11 @@ export const MenuMobile = ({ open, onClose }: Props) => {
                 handleConnectWallet();
               }
             }}
-            className={`mt-5  ${isConnected ? "bg-red-500 hover:bg-red-600 text-white" : "bg-blue-500 hover:bg-blue-600"} text-white"}
+            className={`mt-5  ${
+              isConnected
+                ? "bg-red-500 hover:bg-red-600 text-white"
+                : "bg-blue-500 hover:bg-blue-600"
+            } text-white"}
            text-white`}
             text={isConnected ? " Disconnect" : "Connect"}
           />
