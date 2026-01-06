@@ -1,0 +1,12 @@
+/* Ẩn nút spinner (mũi tên lên/xuống) trên Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  /* background-color: red; */
+  margin: 0;
+}
+
+/* Ẩn trên Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
