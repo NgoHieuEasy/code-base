@@ -4,7 +4,7 @@ import { paths } from "./paths";
 
 const NotFoundPage = lazy(() => import("@/pages/error/page404"));
 const HomePage = lazy(() => import("@/pages/home/home"));
-// const SpotPage = lazy(() => import("@/pages/spot/spot"));
+const SpotPage = lazy(() => import("@/pages/spot/spot"));
 // const FuturesPage = lazy(() => import("@/pages/futures/futures"));
 // const One001xPage = lazy(() => import("@/pages/one001x/one001x"));
 // const ReferralsPage = lazy(() => import("@/pages/referrals/referrals"));
@@ -36,10 +36,10 @@ export function Router() {
               path: paths.root,
               element: <HomePage />,
             },
-            // {
-            //   path: `${paths.exchange.spot}/:id`,
-            //   element: <SpotPage />,
-            // },
+            {
+              path: `${paths.exchange.spot}/:id`,
+              element: <SpotPage />,
+            },
             // {
             //   path: `${paths.exchange.futures}/:id`,
             //   element: <FuturesPage/>,

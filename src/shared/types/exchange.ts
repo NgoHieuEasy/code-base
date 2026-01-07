@@ -1,4 +1,12 @@
-import type { MarginType, OrderSide, OrderStatus, OrderType, PositionSide, TimeInForce, TradeType } from "@/features/spot/types";
+import type {
+  MarginType,
+  OrderSide,
+  OrderStatus,
+  OrderType,
+  PositionSide,
+  TimeInForce,
+  TradeType,
+} from "@/features/spot/types";
 
 export interface IExchangeInfo {
   id: number;
@@ -34,13 +42,24 @@ export interface IExchangeInfo {
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
 }
-
-
+export interface ITradeHistory {
+  symbol: string;
+  id: number;
+  side: string;
+  price: string;
+  quantity: string;
+  type: string;
+  createdAt: string;
+  quoteQuantity: string;
+  fee: string;
+  feeAsset: string | null;
+  isMaker: boolean;
+}
 export interface IPosition {
   id: number;
   userId: number;
   symbol: string;
-  side: 'LONG' | 'SHORT';
+  side: "LONG" | "SHORT";
   positionSide: PositionSide;
   leverage: number;
   entryPrice: string;
@@ -59,7 +78,7 @@ export interface IPosition {
   roe: string;
   marginType: MarginType;
   totalFees: string;
-  status: 'OPEN' | 'CLOSED' | 'LIQUIDATED';
+  status: "OPEN" | "CLOSED" | "LIQUIDATED";
 }
 export interface IOrder {
   id: number;
@@ -80,4 +99,34 @@ export interface IOrder {
   positionSide?: PositionSide;
   reduceOnly?: boolean;
   createdAt: string;
+}
+export interface IOrderBook {
+  b: number[];
+  a: number[];
+  lastUpdateId: number;
+}
+
+export interface IMiniOrderBook {
+  s: string;
+  pi: number | string;
+  b: [number, number][];
+  a: [number, number][];
+  bb: number;
+  ba: number;
+}
+export interface IOrderBookRow {
+  p: number;
+  q: number;
+  total: number;
+  percentage: number;
+}
+export interface ITrade {
+  Q: number;
+  i: string;
+  m: boolean;
+  p: string;
+  pi: number;
+  q: string;
+  s: string;
+  t: string;
 }

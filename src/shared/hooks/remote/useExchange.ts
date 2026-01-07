@@ -1,12 +1,21 @@
 import apiClient from "@/axios/api-client";
 import { getAxios } from "@/axios/axios";
-import type { IFiltersRequestParams } from "@/shared/types/axios";
-import type { IExchangeInfo, IOrder, IPosition } from "@/shared/types/exchange";
+import type {
+  IFiltersRequestParams,
+  IPaginationMeta,
+} from "@/shared/types/axios";
+import type {
+  IExchangeInfo,
+  IMiniOrderBook,
+  IOrder,
+  IPosition,
+  ITradeHistory,
+} from "@/shared/types/exchange";
 import { formatTimeframe } from "@/shared/utils/utilts";
 import { useQuery } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
+import type { Position } from "public/static/charting_library/charting_library";
 
-// ================== POSITIONS ==================
 export function usePositions(status?: string) {
   const { data, isLoading, error, isFetching, refetch } = useQuery<
     IPosition[],
@@ -28,8 +37,6 @@ export function usePositions(status?: string) {
     isEmpty: Array.isArray(data) ? data.length === 0 : !data,
   };
 }
-
-// ================== QUERIES ==================
 
 export function useOpenOrders(filterParams?: IFiltersRequestParams) {
   const { data, isLoading, error, isFetching, refetch } = useQuery<
@@ -115,7 +122,144 @@ export function useExchangeInfo(filterParams?: IFiltersRequestParams) {
   };
 }
 
+export function useOrderBook(filterParams?: IFiltersRequestParams) {
+  const { data, isLoading, error, isFetching } = useQuery<
+    IMiniOrderBook,
+    AxiosError
+  >({
+    queryKey: ["get-order-books", filterParams],
+    queryFn: () =>
+      getAxios({
+        url: `market/orderbook/${filterParams?.symbol}`,
+        filterParams,
+      }),
+    // enabled: !!filterParams?.symbol,
+    // gcTime: 1000 * 60 * 60 * 2,
+    // staleTime: 1000 * 60 * 5,
+  });
+  const isEmpty = Array.isArray(data) ? data.length === 0 : !data;
+
+  return {
+    orBooks: data || null,
+    obLoading: isLoading,
+    obFetching: isFetching,
+    obError: error,
+    obEmpty: isEmpty,
+  };
+}
+
+export function useAggTrades(filterParams?: IFiltersRequestParams) {
+  const { data, isLoading, error, isFetching } = useQuery<ITrade[], AxiosError>(
+    {
+      queryKey: ["get-order-books", filterParams],
+      queryFn: () =>
+        getAxios({
+          url: `market/trades/${filterParams?.symbol}`,
+          filterParams,
+        }),
+    }
+  );
+  const isEmpty = Array.isArray(data) ? data.length === 0 : !data;
+
+  return {
+    aggTrades: data,
+    aggTradesLoading: isLoading,
+    aggTradesFetching: isFetching,
+    aggTradesError: error,
+    aggTradesEmpty: isEmpty,
+  };
+}
+
+export function usePositionHistory(filterParams?: IFiltersRequestParams) {
+  const { data, isLoading, error, isFetching, refetch } = useQuery<
+    IPaginationMeta<Position>,
+    AxiosError
+  >({
+    queryKey: ["portfolio-position-history"],
+    queryFn: () =>
+      getAxios({
+        url: "/positions/history",
+        filterParams,
+      }),
+  });
+
+  return {
+    positions: data?.rows,
+    meta: data?.meta,
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+    isEmpty: Array.isArray(data?.rows) ? data?.rows.length === 0 : !data,
+  };
+}
+
+export function useTrades(filterParams?: IFiltersRequestParams) {
+  const { data, isLoading, error, isFetching } = useQuery<
+    IPaginationMeta<ITradeHistory>,
+    AxiosError
+  >({
+    queryKey: ["trades", filterParams],
+    queryFn: () =>
+      getAxios({
+        url: "/trades",
+        filterParams,
+      }),
+  });
+
+  return {
+    trades: data,
+    isLoading,
+    isFetching,
+    error,
+    isEmpty: Array.isArray(data) ? data.length === 0 : !data,
+  };
+}
+
+export function useTransactions(filterParams?: IFiltersRequestParams) {
+  const { data, isLoading, error, isFetching } = useQuery<any[], AxiosError>({
+    queryKey: ["portfolio-transactions", filterParams],
+    queryFn: () =>
+      getAxios({
+        url: "user/portfolio/transactions",
+        filterParams,
+      }),
+  });
+
+  return {
+    transactions: data,
+    isLoading,
+    isFetching,
+    error,
+    isEmpty: Array.isArray(data) ? data.length === 0 : !data,
+  };
+}
+
+
+export function useTickers(filterParams?: IFiltersRequestParams) {
+  const { data, isLoading, error, isFetching } = useQuery({
+    queryKey: ["get-tickers", filterParams],
+    queryFn: () =>
+      getAxios({
+        url: "market/tickers",
+        filterParams,
+      }),
+    staleTime: 0,
+  });
+
+  const isEmpty = Array.isArray(data) ? data.length === 0 : !data;
+
+  return {
+    tickers: data,
+    tickersLoading: isLoading,
+    tickersFetching: isFetching,
+    tickersError: error,
+    tickersEmpty: isEmpty,
+  };
+}
+
 // ======================== MUTE ======================
+
 export const closePosition = async (data: {
   positionId: number;
   quantity?: string | null;

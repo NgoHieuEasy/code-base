@@ -1,6 +1,10 @@
 import PrimaryButton from "@/shared/components/button/primary-button";
 import MarketStatsBar from "@/shared/components/exchange/market-stats-bar";
+import OrderBook from "@/shared/components/exchange/order-book";
+import TradeHistory from "@/shared/components/exchange/trade-history";
 import TradeOrderPanel, { TradeOrderBody } from "@/shared/components/exchange/trade-order-panel";
+import TradesBook from "@/shared/components/exchange/trades-book";
+import TradingChart from "@/shared/components/exchange/trading-chart";
 import TradingPairHeader from "@/shared/components/exchange/trading-pair-header";
 import UnderlineTabs from "@/shared/components/tab/underline-tabs";
 import { useExchangeInfo } from "@/shared/hooks/remote/useExchange";

@@ -1,4 +1,5 @@
-import { useQueryClient, QueryKey } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import type { QueryKey } from "@tanstack/react-query";
 
 export const useInvalidateQueries = () => {
   const queryClient = useQueryClient();

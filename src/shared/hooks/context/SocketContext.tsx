@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import { socketService } from '@/services/socket';
-import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback,  } from 'react';
+import type { ReactNode } from 'react';
+import { socketService } from '../services/socket';
 
 interface SocketContextValue {
   isPublicConnected: boolean;

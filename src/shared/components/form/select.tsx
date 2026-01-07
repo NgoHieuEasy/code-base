@@ -5,8 +5,8 @@ import {
   PopoverPortal,
   PopoverTrigger,
 } from "@radix-ui/react-popover";
-import { cn } from "@/utils/utilts";
 import { ChevronDown } from "lucide-react";
+import { cn } from "@/shared/utils/utilts";
 
 type Option = {
   label: string;

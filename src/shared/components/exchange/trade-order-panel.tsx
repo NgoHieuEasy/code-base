@@ -4,6 +4,8 @@ import clsx from "clsx";
 import PrimaryButton from "../button/primary-button";
 import PanelPopup from "../popup/panel-popup";
 import UnderlineTabs from "../tab/underline-tabs";
+import TradeSpotLimit from "@/features/spot/components/trade-spot-limit";
+import TradeSpotMarket from "@/features/spot/components/trade-spot-market";
 
 interface Props {
   open: boolean;

@@ -25,6 +25,8 @@ import { DISABLED_FEATURES, ENABLED_FEATURES, favorites, tvDarkOverrides, widget
 import { socketService } from "@/shared/hooks/services/socket";
 import type { WidgetOptions } from "./models";
 import { Datafeed } from "./datafeed";
+import ConfirmEditOrderModal from "@/features/futures/components/confirm-edit-order-modal";
+import { ChartTopNav } from "./chart-top-nav";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

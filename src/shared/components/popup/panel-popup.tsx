@@ -2,9 +2,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Popup } from "./popup";
-import Breadcrumb from "../breadcrums";
 import { twMerge } from "tailwind-merge";
 import { ChevronLeft } from "lucide-react";
+import Breadcrumb from "../breadcrums";
 
 interface Props {
   open: boolean;

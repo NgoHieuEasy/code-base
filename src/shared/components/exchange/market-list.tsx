@@ -1,20 +1,11 @@
-import { useState, useMemo, useEffect, memo, useRef } from "react";
-import BscLogo from "@/assets/images/header/bsc-logo.svg";
-import ArbLogo from "@/assets/images/header/arb-logo.svg";
-import EthLogo from "@/assets/images/header/eth-logo.svg";
+import { useState, useMemo, useEffect, memo } from "react";
 import ArrowUpIcon from "@/assets/icons/exchange/arrow-up-icon";
 import ArrowDownIcon from "@/assets/icons/exchange/arrow-down-icon";
-import VirtualizedList from "./virtualized-list";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { paths } from "@/routes/paths";
-import { ResolutionString } from "public/static/charting_library/charting_library";
-import { useOrderLines } from "@/hooks/components/useOrderLines";
-import {
-  useSocketAllFutureTickers,
-  useSocketAllSpotTickers,
-} from "@/hooks/socket/useTikcerAll";
-import { useTickers } from "@/hooks/actions/useExchange";
-import { CONFIG } from "@/config-global";
+import { useSocketAllFutureTickers, useSocketAllSpotTickers } from "@/shared/hooks/socket/useTikcerAll";
+import { useTickers } from "@/shared/hooks/remote/useExchange";
+import VirtualizedList from "./virtualized-list";
 
 type Market = {
   s: string;
@@ -23,24 +14,6 @@ type Market = {
   P: number;
   logo: string;
   category: string;
-};
-
-// Detect category theo ký tự
-const getCategory = (sym: string) => {
-  if (sym.includes("USD") || sym.endsWith("USDT")) return "Crypto PERP";
-  if (sym.includes("EUR") || sym.includes("JPY")) return "Forex PERP";
-  if (sym.includes("XAU") || sym.includes("PAXG")) return "Commodities PERP";
-  return "Stock PERP";
-};
-
-// Detect icon
-export const getIcon = (sym: string) => {
-  if (sym.startsWith("BTC")) return BscLogo;
-  if (sym.startsWith("ETH")) return EthLogo;
-  if (sym.startsWith("BNB")) return BscLogo;
-  if (sym.startsWith("PAXG") || sym.startsWith("XAU")) return ArbLogo;
-  if (sym.includes("EUR") || sym.includes("JPY")) return ArbLogo;
-  return ArbLogo;
 };
 
 // Row được memo hóa
@@ -301,7 +274,11 @@ const MarketList = ({ onClick, marketType }: Props) => {
                     JSON.stringify(data)
                   );
                   navigate(
-                    `${marketType === "SPOT" ? paths.exchange.spot : paths.exchange.futures}/${item.s}`,
+                    `${
+                      marketType === "SPOT"
+                        ? paths.exchange.spot
+                        : paths.exchange.futures
+                    }/${item.s}`,
                     {
                       replace: true,
                     }
