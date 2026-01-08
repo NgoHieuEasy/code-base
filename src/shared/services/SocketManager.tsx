@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSocketContext } from '../context/SocketContext';
-import { useAuth } from '../remote/useAuth';
+import { useAuth } from '../hooks/remote/useAuth';
 
 export function SocketManager() {
     const { token } = useAuth();

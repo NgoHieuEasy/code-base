@@ -11,7 +11,6 @@ import { fNumber, formatVolume } from "@/shared/utils/format-number";
 import { getCountdown } from "@/shared/utils/utilts";
 import { useTicker } from "@/shared/hooks/remote/useExchange";
 
-
 interface Props {
   marketType: "SPOT" | "FUTURES";
   className?: string;
@@ -21,7 +20,6 @@ export default function MarketStatsBar({ marketType, className }: Props) {
   // const data = useMarketStats();
   const { exInfo } = useExchangeStore();
   const { id } = useParams();
-  const [ticker, setTicker] = useState<any>(null);
   const tickerSO = useSocketTicker(id as string);
   const { ticker: tickerAPI } = useTicker({ symbol: id });
   const markPrice = useMarkPrice(id as string, marketType === "FUTURES");
@@ -40,29 +38,27 @@ export default function MarketStatsBar({ marketType, className }: Props) {
     return fundingRateData ? fundingRateData : null;
   }, [fundingRateData]);
 
-  useEffect(() => {
-    if (!tickerSO) return;
-    setTicker(tickerSO);
-  }, [tickerSO]);
-
-  useEffect(() => {
-    if (!tickerAPI) return;
-    setTicker(tickerAPI);
-  }, [tickerAPI]);
+  const ticker = useMemo(() => {
+    if (tickerSO) return tickerSO;
+    if (tickerAPI) return tickerAPI;
+    return null;
+  }, [tickerSO, tickerAPI]);
 
   useEffect(() => {
     if (!ticker?.p) return;
 
     const prev = prevPriceRef.current;
+    let next: "up" | "down" | null = null;
 
     if (prev !== null) {
-      if (ticker.p > prev) setPriceDirection("up");
-      else if (ticker.p < prev) setPriceDirection("down");
-      else setPriceDirection(null);
+      if (ticker.p > prev) next = "up";
+      else if (ticker.p < prev) next = "down";
     }
 
-    // cập nhật giá cũ *sau khi so sánh*
     prevPriceRef.current = ticker.p;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPriceDirection((current) => (current === next ? current : next));
   }, [ticker?.p]);
 
   return (
@@ -75,8 +71,8 @@ export default function MarketStatsBar({ marketType, className }: Props) {
               priceDirection === null
                 ? "text-white"
                 : priceDirection === "up"
-                  ? "text-green-500"
-                  : "text-red-500"
+                ? "text-green-500"
+                : "text-red-500"
             }
           >
             {(
@@ -84,12 +80,14 @@ export default function MarketStatsBar({ marketType, className }: Props) {
             ).toLocaleString("en-US")}
           </span>
           <span
-            className={`text-[14px] ${Number(ticker?.C) > 0 ? "text-green-500" : "text-red-500"}`}
+            className={`text-[14px] ${
+              Number(ticker?.C) > 0 ? "text-green-500" : "text-red-500"
+            }`}
           >
             {ticker
-              ? `${ticker.C >= 0 ? "+" : ""}${
-                  ticker.C
-                } (${ticker?.P?.toFixed(2)}%)`
+              ? `${ticker.C >= 0 ? "+" : ""}${ticker.C} (${ticker?.P?.toFixed(
+                  2
+                )}%)`
               : "---"}
           </span>
         </div>

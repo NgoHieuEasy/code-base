@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { socketService } from "@/shared/services/socket";
 import { useEffect, useState } from "react";
-import { socketService } from "../services/socket";
 
 export function useSocketAllSpotTickers({ enabled }: { enabled: boolean }) {
   const [tickers, setTickers] = useState<any[]>([]);

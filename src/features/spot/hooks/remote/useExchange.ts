@@ -27,6 +27,6 @@ export function useSpotBalances(walletType?: string) {
   };
 }
 export const createOrder = async (data: ICreateOrder) => {
-  const response = await apiClient.post("order", data);
+  const response = await apiClient.post("orders", data);
   return response;
 };

@@ -22,11 +22,11 @@ import { useOpenOrders, usePositions } from "@/shared/hooks/remote/useExchange";
 import { useChartTools } from "@/shared/hooks/local/useChartTool";
 import { useOrderLines } from "@/shared/hooks/local/useOrderLines";
 import { DISABLED_FEATURES, ENABLED_FEATURES, favorites, tvDarkOverrides, widgetOptionsDefault } from "@/shared/utils/constants";
-import { socketService } from "@/shared/hooks/services/socket";
 import type { WidgetOptions } from "./models";
 import { Datafeed } from "./datafeed";
 import ConfirmEditOrderModal from "@/features/futures/components/confirm-edit-order-modal";
 import { ChartTopNav } from "./chart-top-nav";
+import { socketService } from "@/shared/services/socket";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

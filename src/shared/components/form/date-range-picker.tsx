@@ -34,7 +34,7 @@ export function DateRangePicker({
     endTime ? new Date(endTime) : null
   );
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
     setFromDate(startTime ? new Date(startTime) : null);
     setToDate(endTime ? new Date(endTime) : null);
   }, [startTime, endTime]);

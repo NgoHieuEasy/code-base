@@ -5,14 +5,16 @@ import {
 } from "@radix-ui/react-popover";
 import { useEffect, useMemo, useState } from "react";
 
-
 import { CandlestickChart, ChevronDown, ChevronDownIcon } from "lucide-react";
 import { useLocalStorage } from "@/zustand/useLocalStorage";
 import { CHART_TYPES, timeframes } from "@/shared/utils/constants";
 import { useChartStore } from "@/zustand/useChartStore";
-import type { ResolutionString } from "public/static/charting_library/charting_library";
+import type {
+  IChartingLibraryWidget,
+  ResolutionString,
+} from "public/static/charting_library/charting_library";
 
- const chartTypeOptions = [
+const chartTypeOptions = [
   {
     value: CHART_TYPES.BARS,
     label: "Bars",
@@ -96,11 +98,6 @@ interface IChartTopNav {
   tvWidget: IChartingLibraryWidget | null;
 }
 
-type ChartOrderStorage = {
-  position: boolean;
-  limitOrder: boolean;
-  tpSl: boolean;
-};
 
 export const ChartTopNav = ({ tvWidget }: IChartTopNav) => {
   const { timeframe, setTimeframe } = useChartStore();
@@ -162,9 +159,9 @@ export const ChartTopNav = ({ tvWidget }: IChartTopNav) => {
       {Object.entries(timeframes).map(([key, value], i) => (
         <button
           key={key}
-          className={` text-xsBold ${timeframe === value ? "text-white " : "text-gray-500"} ${
-            i <= 2 ? "" : "hidden md:flex items-center justify-center"
-          } `}
+          className={` text-xsBold ${
+            timeframe === value ? "text-white " : "text-gray-500"
+          } ${i <= 2 ? "" : "hidden md:flex items-center justify-center"} `}
           onClick={() => {
             setTimeframe(value);
             const data = {
@@ -204,7 +201,9 @@ export const ChartTopNav = ({ tvWidget }: IChartTopNav) => {
           {Object.entries(timeframes).map(([key, value], i) => (
             <button
               key={key}
-              className={`text-xs ${timeframe === value ? "text-white" : "text-font-70"}
+              className={`text-xs ${
+                timeframe === value ? "text-white" : "text-font-70"
+              }
                  w-[50px] h-[30px] ${
                    i > 2 ? "flex items-center justify-center" : "hidden"
                  } bg-terciary rounded-md

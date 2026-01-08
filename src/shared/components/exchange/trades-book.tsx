@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { SkeletonOrderBook } from "./order-book";
 import { useSocketTrades } from "@/shared/hooks/socket/useTrade";
@@ -16,48 +16,31 @@ const TradesBook = () => {
     type: "SPOT",
   };
   const socketTrades = useSocketTrades(id as string);
-  const socket: any | null = null;
-
   const { aggTrades, aggTradesLoading } = useAggTrades(filters);
 
-  const [trades, setTrades] = useState<ITrade[]>([]);
+  // useEffect(() => {
+  //   if (aggTrades && aggTrades.length > 0) {
+  //     setTrades(aggTrades);
+  //   }
+  // }, [aggTrades]);
 
-  useEffect(() => {
-    if (aggTrades && aggTrades.length > 0) {
-      setTrades(aggTrades);
+  // useEffect(() => {
+  //   if (socketTrades?.length) {
+  //     setTrades((prev) => [...socketTrades, ...prev].slice(0, 200));
+  //   }
+  // }, [socketTrades]);
+
+  const trades: ITrade[] = useMemo(() => {
+    if (!aggTrades && !socketTrades) return [];
+
+    const baseTrades = aggTrades ?? [];
+
+    if (!socketTrades?.length) {
+      return baseTrades.slice(0, 200);
     }
-  }, [aggTrades]);
 
-  useEffect(() => {
-    if (socketTrades?.length) {
-      setTrades((prev) => [...socketTrades, ...prev].slice(0, 200));
-    }
-  }, [socketTrades]);
-
-  useEffect(() => {
-    if (!socket) return;
-
-    socket.emit("subscribe_trades", {
-      symboll: id,
-      type: "SPOT",
-    });
-
-    socket.on("trade_update", (event) => {
-      setTrades((prev) => {
-        if (!event.data) return prev;
-
-        if (prev.some((trade) => trade.i === event.data.i)) {
-          return prev;
-        }
-
-        return [event.data, ...prev.slice(0, 20)];
-      });
-    });
-
-    return () => {
-      socket.off("trade_update");
-    };
-  }, [socket, id]);
+    return [...socketTrades, ...baseTrades].slice(0, 200);
+  }, [aggTrades, socketTrades]);
 
   return (
     <div className="w-full h-full overflow-y-auto px-3 py-2 text-white bg-card-primary">
@@ -83,26 +66,27 @@ const TradesBook = () => {
           <SkeletonOrderBook />
         ) : (
           <div>
-            {trades.map((trade, i) => (
-              <div
-                key={trade.i}
-                className={`${trade.m ? "text-red-500" : "text-green-500"} ${
-                  i === 0 ? "animate-slide-up" : ""
-                }`}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                  padding: "4px 0",
-                  fontSize: 13,
-                }}
-              >
-                <span>{fNumber(trade.p)}</span>
+            {trades &&
+              trades.map((trade, i) => (
+                <div
+                  key={trade.i}
+                  className={`${trade.m ? "text-red-500" : "text-green-500"} ${
+                    i === 0 ? "animate-slide-up" : ""
+                  }`}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr",
+                    padding: "4px 0",
+                    fontSize: 13,
+                  }}
+                >
+                  <span>{fNumber(trade.p)}</span>
 
-                <span className="text-right">{fNumber(+trade.q)}</span>
+                  <span className="text-right">{trade.q}</span>
 
-                <span className="text-right">{fTime(trade.t)}</span>
-              </div>
-            ))}
+                  <span className="text-right">{fTime(trade.t)}</span>
+                </div>
+              ))}
           </div>
         )}
       </div>

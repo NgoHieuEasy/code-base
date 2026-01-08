@@ -9,6 +9,7 @@ import type {
   IMiniOrderBook,
   IOrder,
   IPosition,
+  ITrade,
   ITradeHistory,
 } from "@/shared/types/exchange";
 import { formatTimeframe } from "@/shared/utils/utilts";

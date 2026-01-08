@@ -2,8 +2,8 @@ import "./i18n";
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./routes";
 import LoginPopup from "./shared/components/popup/login-popup";
-import { SocketProvider } from "./shared/hooks/context/SocketContext";
-import { SocketManager } from "./shared/hooks/services/SocketManager";
+import { SocketProvider } from "./shared/context/SocketContext";
+import { SocketManager } from "./shared/services/SocketManager";
 
 function App() {
   // const { setUser, loading } = useUserStore();

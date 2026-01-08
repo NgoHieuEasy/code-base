@@ -97,38 +97,31 @@ export const OrderBook = () => {
   const [priceDirection, setPriceDirection] = useState<"up" | "down" | null>(
     null
   );
-  const [filters, setFilters] = useState({
-    page: String(1),
-    limit: String(30),
-    symbol: id,
-    type: "SPOT",
-  });
+
+  const filters = useMemo(
+    () => ({
+      page: String(1),
+      limit: String(30),
+      symbol: id,
+      type: "SPOT",
+    }),
+    [id]
+  );
 
   const ticker = useSocketTicker(id as string);
 
   const socketOB = useSocketOrderBook<IMiniOrderBook>(id as string);
-  // const [orderBooks, setOrderBooks] = useState<IMiniOrderBook | null>(null);
-  const { orBooks, obFetching } = useOrderBook(filters);
+  const { orBooks, obLoading } = useOrderBook(filters);
   const [mode, setMode] = useState<Mode>("full");
   const [step, setStep] = useState(0.1);
 
-  // useEffect(() => {
-  //   if (!socketOB) return;
-
-  //   setOrderBooks(socketOB);
-  // }, [socketOB]);
-
-  // useEffect(() => {
-  //   if (!orBooks) return;
-  //   setOrderBooks(orBooks);
-  // }, [orBooks]);
-
   const orderBooks: IMiniOrderBook | null = useMemo(() => {
     if (socketOB) return socketOB;
+
     if (orBooks) return orBooks;
     return null;
   }, [socketOB, orBooks]);
-  
+
   const displayRows = useMemo(() => {
     if (mode === "full") {
       return 10;
@@ -142,25 +135,20 @@ export const OrderBook = () => {
   }, [mode]);
 
   useEffect(() => {
-    setFilters((prev) => ({
-      ...prev,
-      symbol: id,
-    }));
-  }, [id]);
-
-  // get last Price
-  useEffect(() => {
     if (!ticker?.p) return;
 
     const prev = prevPriceRef.current;
+    let next: "up" | "down" | null = null;
 
     if (prev !== null) {
-      if (ticker.p > prev) setPriceDirection("up");
-      else if (ticker.p < prev) setPriceDirection("down");
-      else setPriceDirection(null);
+      if (ticker.p > prev) next = "up";
+      else if (ticker.p < prev) next = "down";
     }
 
     prevPriceRef.current = ticker.p;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPriceDirection((current) => (current === next ? current : next));
   }, [ticker?.p]);
 
   const orderBookData = useMemo(() => {
@@ -257,7 +245,7 @@ export const OrderBook = () => {
         <span className="text-right">Sum</span>
       </div>
 
-      {obFetching ? (
+      {obLoading ? (
         <SkeletonOrderBook />
       ) : (
         <div>

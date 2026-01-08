@@ -65,7 +65,7 @@ const CustomFilter = ({
         listSelect.forEach((item) => {
           initialFilters[item.key] = item.value;
         });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+       
       setTempFilters(initialFilters);
     }
   }, [open, time, listSelect]);

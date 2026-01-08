@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSocketContext } from "../context/SocketContext";
-import { socketService } from "../services/socket";
+import { useSocketContext } from "../../context/SocketContext";
+import { socketService } from "@/shared/services/socket";
 
 export function useMarkPrice(symbol: string, enabled: boolean) {
   const [markPrice, setMarkPrice] = useState<any>(null);

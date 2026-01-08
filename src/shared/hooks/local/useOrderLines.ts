@@ -163,7 +163,7 @@ export const useOrderLines = (
   }
 
   // const { data: allOrders } = usePrivateQuery<any[]>("/v1/trades?size=500");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   const updatePositions = useCallback(() => {
     console.log(
       "Updating positions...Updating positions...Updating positions..."

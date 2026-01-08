@@ -37,7 +37,6 @@ const formatDate = (date: string | number) => {
 const TradeHistoryBody = ({ activeTab, marketType = "SPOT" }: Props) => {
   const { id } = useParams<{ id: string }>();
   const { invalidate } = useInvalidateQueries();
-  // const { mutate: cancelOrder } = useCancelOrder();
 
   const { mutate: cancelOrderApi } = useMutation({
     mutationFn: cancelOrder,
@@ -46,9 +45,6 @@ const TradeHistoryBody = ({ activeTab, marketType = "SPOT" }: Props) => {
   const [tpslPosition, setTpslPosition] = useState<IPosition | null>(null);
   useSocketBalanceUpdate();
   useSocketOrderUpdate();
-
-  // console.log("🚀 ~ TradeHistoryBody ~ balanceUpdate:", balanceUpdate);
-  // console.log("🚀 ~ TradeHistoryBody ~ orderUpdate:", orderUpdate);
 
   // Data hooks
   const { orders: openOrders, isLoading: openLoading } = useOpenOrders({

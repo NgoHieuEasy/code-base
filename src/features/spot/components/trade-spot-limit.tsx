@@ -46,7 +46,6 @@ const TradeSpotLimit = ({ orderType }: Props) => {
     mutationFn: createOrder,
   });
 
-
   const baseAsset = exInfo?.baseAssetSymbol || "BTC";
   const quoteAsset = exInfo?.quoteAssetSymbol || "USDT";
 
@@ -132,13 +131,6 @@ const TradeSpotLimit = ({ orderType }: Props) => {
       }
     );
   };
-
-  useEffect(() => {
-    if (!hasMounted.current && currentPrice) {
-      fSetPrice(currentPrice);
-      hasMounted.current = true;
-    }
-  }, [currentPrice]);
   const fSetPrice = (amount: number) => {
     if (!exInfo) return;
     // Assuming price step is derived from precision if tickSize/stepSize for price is generic
@@ -147,6 +139,14 @@ const TradeSpotLimit = ({ orderType }: Props) => {
     const value = cutByStepSize(Number(amount), step);
     setValue("price", value.toString());
   };
+  
+  useEffect(() => {
+    if (!hasMounted.current && currentPrice) {
+      fSetPrice(currentPrice);
+      hasMounted.current = true;
+    }
+  }, [currentPrice]);
+
   return (
     <div>
       <div className="flex items-center gap-1 mt-2">

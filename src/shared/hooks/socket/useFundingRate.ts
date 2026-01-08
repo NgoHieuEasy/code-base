@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSocketContext } from "../context/SocketContext";
-import { socketService } from "../services/socket";
+import { useSocketContext } from "../../context/SocketContext";
+import { socketService } from "@/shared/services/socket";
 
 export function useFundingRate(symbol: string, enabled: boolean) {
   const [fundingRate, setFundingRate] = useState<any>(null);
